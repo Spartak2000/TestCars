@@ -24,6 +24,9 @@ public class BrowserFactory extends BaseEntity {
 
 
     public static WebDriver getSingletonBrowser() {
+          String strBrowser=System.getProperty("browser");
+        if(strBrowser==null)
+            strBrowser=configReader.getProperties("browser");
         if (driver == null) {
             switch (OS) {
                 case "wind": {
@@ -31,7 +34,7 @@ public class BrowserFactory extends BaseEntity {
                     pathFirefox += ".exe";
                 }
             }
-            switch (configReader.getProperties(strBrowser)) {
+            switch (strBrowser) {
                 case "Chrome": {
                     try {
                         System.setProperty("webdriver.chrome.driver", new File(pathChrome).getCanonicalPath());
